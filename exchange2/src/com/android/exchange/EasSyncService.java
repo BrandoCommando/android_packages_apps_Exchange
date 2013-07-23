@@ -431,7 +431,7 @@ public class EasSyncService extends AbstractSyncService {
     public Bundle validateAccount(HostAuth hostAuth, Context context) {
         Bundle bundle = new Bundle();
         int resultCode = MessagingException.NO_ERROR;
-        try {
+		try {
             userLog("Testing EAS: ", hostAuth.mAddress, ", ", hostAuth.mLogin,
                     ", ssl = ", hostAuth.shouldUseSsl() ? "1" : "0");
             mContext = context;
@@ -521,6 +521,7 @@ public class EasSyncService extends AbstractSyncService {
                             : MessagingException.AUTHENTICATION_FAILED;
                 } else if (code == INTERNAL_SERVER_ERROR_CODE) {
                     // For Exchange 2003, this could mean an authentication failure OR server error
+
                     userLog("Internal server error");
                     resultCode = MessagingException.AUTHENTICATION_FAILED_OR_SERVER_ERROR;
                 } else {
@@ -535,6 +536,7 @@ public class EasSyncService extends AbstractSyncService {
             } catch (CommandStatusException e) {
                 int status = e.mStatus;
                 if (CommandStatus.isNeedsProvisioning(status)) {
+					/*
                     // Get the policies and see if we are able to support them
                     ProvisionParser pp = canProvision(this);
                     if (pp != null && pp.hasSupportablePolicySet()) {
@@ -555,6 +557,7 @@ public class EasSyncService extends AbstractSyncService {
                         bundle.putParcelable(EmailServiceProxy.VALIDATE_BUNDLE_POLICY_SET,
                                 pp.getPolicy());
                     }
+					*/
                 } else if (CommandStatus.isDeniedAccess(status)) {
                     userLog("Denied access: ", CommandStatus.toString(status));
                     resultCode = MessagingException.ACCESS_DENIED;
