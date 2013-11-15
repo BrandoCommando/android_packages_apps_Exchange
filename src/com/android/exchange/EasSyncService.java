@@ -561,6 +561,7 @@ public class EasSyncService extends AbstractSyncService {
             } catch (CommandStatusException e) {
                 int status = e.mStatus;
                 if (CommandStatus.isNeedsProvisioning(status)) {
+/*
                     // Get the policies and see if we are able to support them
                     ProvisionParser pp = canProvision(this);
                     if (pp != null && pp.hasSupportablePolicySet()) {
@@ -581,6 +582,7 @@ public class EasSyncService extends AbstractSyncService {
                         bundle.putParcelable(EmailServiceProxy.VALIDATE_BUNDLE_POLICY_SET,
                                 pp.getPolicy());
                     }
+*/
                 } else if (CommandStatus.isDeniedAccess(status)) {
                     userLog("Denied access: ", CommandStatus.toString(status));
                     resultCode = MessagingException.ACCESS_DENIED;
